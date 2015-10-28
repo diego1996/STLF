@@ -17,7 +17,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -45,6 +48,7 @@ public class controladorPrincipal implements ActionListener {
     
     private String path, path1;
     
+    
     public controladorPrincipal(PrincipalGUI principal) {
         this.principal = principal;
         fcfile = this.principal.getFcfile();
@@ -55,7 +59,7 @@ public class controladorPrincipal implements ActionListener {
         tfile.setEnabled(false);
         tports = this.principal.getTports();
         tip = this.principal.getTip();
-        tip.setText("127.0.0.1");
+        tip.setText(getIP());
         bsend = this.principal.getBsend();
         bsend.setEnabled(false);
         bsend.addActionListener(this);
@@ -68,7 +72,8 @@ public class controladorPrincipal implements ActionListener {
         bpath.addActionListener(this);
         
         cbips = this.principal.getCbips();
-        cbips.setEnabled(false);
+        getDataJCB(cbips);
+        cbips.setEnabled(true);
         cbips.addActionListener(this);
         
         cbenviar = this.principal.getCbenviar();
@@ -126,6 +131,77 @@ public class controladorPrincipal implements ActionListener {
         principal.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
+    
+    private void getDataJCB(JComboBox cbips) {
+        this.cbips = cbips;
+        cbips.addItem( getIP().substring(0, getIP().length() - 3) + "1" );
+        InetAddress inAdd;
+        for (int i = 100; i < 115; i++) {
+            
+            try {
+                if(getIP().substring(getIP().length()-2, getIP().length()).equals(".1") ) {
+                    inAdd = InetAddress.getByName(getIP().substring(0, getIP().length() - 1) + i);
+                }else {
+                    inAdd = InetAddress.getByName(getIP().substring(0, getIP().length() - 3) + i);
+                }
+                if (inAdd.isReachable(1500)) {
+                System.out.println("IP: " + inAdd.getHostAddress());
+                cbips.addItem(inAdd.getHostAddress());
+                System.out.println("HOST: " + inAdd.getHostName());
+                System.out.println();
+                }
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        
+        
+    }
+    
+    private String getIP(){
+     /*  Enumeration e;
+        try {
+            e = NetworkInterface.getNetworkInterfaces();
+        while(e.hasMoreElements())
+        {
+            NetworkInterface n = (NetworkInterface) e.nextElement();
+            Enumeration ee = n.getInetAddresses();
+            while (ee.hasMoreElements())
+            {
+                InetAddress i = (InetAddress) ee.nextElement();
+                System.out.println(i.getHostAddress());
+            }
+        }
+        } catch (SocketException ex) {
+            Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+*/
+
+        try {
+         // Cogemos la IP 
+            InetAddress address = InetAddress.getLocalHost();
+
+            byte[] bIPAddress = address.getAddress();
+
+            // IP en formato String
+            String sIPAddress = "";
+
+            for (int x=0; x<bIPAddress.length; x++) {
+              if (x > 0) {
+                // A todos los numeros les anteponemos
+                // un punto menos al primero    
+                sIPAddress += ".";
+              }
+              // Jugamos con los bytes y cambiamos el bit del signo
+              sIPAddress += bIPAddress[x] & 255;	   
+            }
+            return sIPAddress;
+        }catch(UnknownHostException ex) {return null;}
+    }
+    
     public void ConexionClose() {
 
 
@@ -134,6 +210,7 @@ public class controladorPrincipal implements ActionListener {
     public void recibir(String IP, int port, String path) {
         try {
             System.out.println("Starting server...");
+            System.out.println(InetAddress.getByName(IP));
             _Server=new _Server(port, 500, InetAddress.getByName(IP), path);
             _Server.init();
            /* try {

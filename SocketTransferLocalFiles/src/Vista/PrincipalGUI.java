@@ -24,7 +24,7 @@ public class PrincipalGUI extends JFrame {
     private JFileChooser fcfile,fcfile1;
     private JComboBox cbips;
     private JButton bsend, bgodir, bfile, bpath;
-    private JTextField tip, tportc, tports, tpath, tfile;
+    private JTextField tip, tportc, tports, tpath, tfile, tips;
     
     public PrincipalGUI() {
         setLayout(null);
@@ -49,9 +49,12 @@ public class PrincipalGUI extends JFrame {
         
         cbips = new JComboBox();
         cbips.setBounds(150, 150, 150, 30);
+  
         cbips.addItem("127.0.0.1");
-        cbips.addItem("127.0.0.2");
-        cbips.addItem("127.0.0.3");
+    
+        
+        //tips = new JTextField(50);
+        //tips
         
         lips = new JLabel("IP: ");
         lips.setBounds(500, 150, 50, 30);
