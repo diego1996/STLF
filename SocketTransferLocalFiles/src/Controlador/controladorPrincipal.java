@@ -20,16 +20,20 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 /**
  *
@@ -47,9 +51,9 @@ public class controladorPrincipal implements ActionListener {
     private _Socket socket;
     
     private String path, path1;
+    private JProgressBar progressBar;
     
-    
-    public controladorPrincipal(PrincipalGUI principal) {
+    public controladorPrincipal(PrincipalGUI principal, ArrayList<String> iplist) {
         this.principal = principal;
         fcfile = this.principal.getFcfile();
         fcfile1 = this.principal.getFcfile1();
@@ -72,7 +76,7 @@ public class controladorPrincipal implements ActionListener {
         bpath.addActionListener(this);
         
         cbips = this.principal.getCbips();
-        getDataJCB(cbips);
+        getDataJCB(cbips, iplist);
         cbips.setEnabled(true);
         cbips.addActionListener(this);
         
@@ -132,32 +136,14 @@ public class controladorPrincipal implements ActionListener {
     }
     
     
-    private void getDataJCB(JComboBox cbips) {
-        this.cbips = cbips;
-        cbips.addItem( getIP().substring(0, getIP().length() - 3) + "1" );
-        InetAddress inAdd;
-        for (int i = 100; i < 115; i++) {
-            
-            try {
-                if(getIP().substring(getIP().length()-2, getIP().length()).equals(".1") ) {
-                    inAdd = InetAddress.getByName(getIP().substring(0, getIP().length() - 1) + i);
-                }else {
-                    inAdd = InetAddress.getByName(getIP().substring(0, getIP().length() - 3) + i);
-                }
-                if (inAdd.isReachable(1500)) {
-                System.out.println("IP: " + inAdd.getHostAddress());
-                cbips.addItem(inAdd.getHostAddress());
-                System.out.println("HOST: " + inAdd.getHostName());
-                System.out.println();
-                }
-            } catch (UnknownHostException ex) {
-                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        }
+    private void getDataJCB(JComboBox cbips, ArrayList<String> iplist) {
         
+        this.cbips = cbips;
+        
+        for(int i=0;i<iplist.size();i++) {
+            cbips.addItem(iplist.get(i));
+        }
+
         
     }
     

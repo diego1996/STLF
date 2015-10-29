@@ -7,12 +7,14 @@ package Controlador;
 
 import Vista.LoginGUI;
 import Vista.PrincipalGUI;
+import Vista.ProgressSample;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import javax.swing.SwingWorker;
 
 /**
  *
@@ -25,6 +27,7 @@ public class controladorLogin implements ActionListener {
     private JButton blogin;
     private PrincipalGUI principal;
     private controladorPrincipal cprincipal;
+    private ProgressSample progress;
 
     public controladorLogin(LoginGUI login) {
         this.login = login;
@@ -45,8 +48,22 @@ public class controladorLogin implements ActionListener {
     
     public void actionPerformed(ActionEvent e) {
         if(blogin == e.getSource()) {
-            principal = new PrincipalGUI();
-            cprincipal = new controladorPrincipal(principal);
+            final SwingWorker worker = new SwingWorker(){
+                @Override
+                protected Object doInBackground() throws Exception {
+                    
+                    progress = new ProgressSample();
+                    login.dispose();
+                    principal = new PrincipalGUI();
+                    cprincipal = new controladorPrincipal(principal, progress.getIPS());
+		return null;
+		}	
+            };
+            worker.execute();
+            
+            
+            
+            
         }
     }
     
