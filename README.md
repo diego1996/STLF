@@ -42,6 +42,10 @@ la misma
 3) No requiere conexion a internet. Basta con un access point
 
 
+#USO
+
+java -jar SocketTransferLocalFiles.jar
 
 
-Developed: Diego Alejandro Asencio Cuellar - diego.asencio.cuellar@unillanos.edu.co - diego1996
+#Developed: 
+Diego Alejandro Asencio Cuellar - diego.asencio.cuellar@unillanos.edu.co - diego1996
