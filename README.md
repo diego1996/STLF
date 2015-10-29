@@ -12,13 +12,15 @@ para Computadores ( Windows, Linux, MacOS ) como tambien
 en algunos Sistemas Operativos para dispositivos Moviles
 como Android. La aplicacion de escritorio se empieza a 
 construir usando el Lenguaje de Programacion JAVA y el 
-IDE NetBeans 8y se
-encuentra en su version inicial (STLFv0) y esta siendo mejorado para 
-que dentro de muy poco se lanze oficialmente la primer 
-version funcional con la que se pretende
+IDE NetBeans 8, el Proyecto se encuentra en su version 
+inicial (STLFv0) y esta siendo mejorado frecuentemente
+para poder llegar a la primer version funcional para
+Sistemas Operativos de Escritorio.
 
 
 #Requisitos
+
+( Windows - Linux - Mac )
 
 1) Tener JDK de JAVA correctamente instalado y configurado
 en la maquina
@@ -29,8 +31,10 @@ en la maquina
 
 #Funcionalidades
 
+( Windows - Linux - Mac )
+
 1) Transfiere archivos Locales entre dos o mas maquinas, e incluso
-en el mismo host
+en el mismo host.
 
 2) Recibe archivos Locales entre dos o mas maquinas e incluso de 
 la misma
@@ -39,6 +43,8 @@ la misma
 
 
 #USO
+
+( Windows - Linux - Mac )
 
 java -jar SocketTransferLocalFiles.jar
 
