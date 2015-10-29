@@ -1,25 +1,21 @@
 # STLF
-Socket Transfer Local File (STLF) 
+Socket Transfer Local Files (STLF) 
 
-STLF es un Proyecto desarrollado en NetBeans IDE bajo el
-lenguaje de programacion JAVA, que tiene como objetivo 
-transferir archivos entre dos o mas maquinas que esten
-conectadas a un mismo Access Point (AP). 
+STLF es un Proyecto que tiene como objetivo principal 
+transferir archivos entre maquinas que esten conectadas
+a un mismo Access Point (AP). 
 
-Socket Transfer Local File es un proyecto en fase de
-construccion que se encuentra en su version inicial
-STLFv0.1 con la cual se da inicio a la ardua tarea de 
-mantener el software actualizado en nuevas mejoras y/o 
-funcionalidades, en la prevencion y correcion de bugs, 
-fallas del sistema o malas practicas de programacion
-que se lleven a cabo durante la labor de desarrollo.
-Este repositorio quedara a disposicion de cualquier
-persona que desee contribuir en el proyecto con el unico
-fin de soportar al aplicativo desde distintos autores. La
-idea nace como solucion a un problema real que se puede
-presentar entre los usuarios de la actual tecnologia, 
-bien sea dispositivos moviles (SmartPhones, Tablets)
-o equipos de computo (de Escritorio, Portatiles).
+Socket Transfer Local Files pretende ser un proyecto 
+multiplataforma, es decir que la aplicacion pueda ser
+usada en los distintos Sistemas Operativos actuales 
+para Computadores ( Windows, Linux, MacOS ) como tambien
+en algunos Sistemas Operativos para dispositivos Moviles
+como Android. La aplicacion de escritorio se empieza a 
+construir usando el Lenguaje de Programacion JAVA y el 
+IDE NetBeans 8y se
+encuentra en su version inicial (STLFv0) y esta siendo mejorado para 
+que dentro de muy poco se lanze oficialmente la primer 
+version funcional con la que se pretende
 
 
 #Requisitos
