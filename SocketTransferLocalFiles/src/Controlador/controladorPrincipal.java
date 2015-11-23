@@ -9,6 +9,7 @@ package Controlador;
 import Vista.PrincipalGUI;
 import Controlador.Servidor._Server;
 import Controlador.Cliente._Socket;
+import Vista.Progress;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -33,6 +34,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 import javax.swing.border.Border;
 
 /**
@@ -42,14 +44,15 @@ import javax.swing.border.Border;
 public class controladorPrincipal implements ActionListener {
     
     private PrincipalGUI principal;
-    private JButton bsend, bgodir, bfile, bpath;
+    private JButton bsend, bgodir, bfile, bpath,refreshIP;
     private JCheckBox cbenviar, cbrecibir;
     private JComboBox cbips;
     private JTextField tportc, tports, tip, tfile, tpath;
     private JFileChooser fcfile, fcfile1;
     private _Server _Server;
     private _Socket socket;
-    
+    private Progress progress;
+    private controladorPrincipal cprincipal;
     private String path, path1;
     private JProgressBar progressBar;
     
@@ -74,6 +77,9 @@ public class controladorPrincipal implements ActionListener {
         bfile.addActionListener(this);
         bpath = this.principal.getBpath();
         bpath.addActionListener(this);
+        
+        refreshIP = this.principal.getRefreshIP();
+        refreshIP.addActionListener(this);
         
         cbips = this.principal.getCbips();
         getDataJCB(cbips, iplist);
@@ -139,6 +145,13 @@ public class controladorPrincipal implements ActionListener {
     private void getDataJCB(JComboBox cbips, ArrayList<String> iplist) {
         
         this.cbips = cbips;
+        int len = cbips.getItemCount();
+        JOptionPane.showMessageDialog(null, len);
+        for(int i=0;i<cbips.getItemCount();) {
+            cbips.removeItem(cbips.getItemAt(i));
+        }
+        
+        cbips.addItem("127.0.0.1");
         
         for(int i=0;i<iplist.size();i++) {
             cbips.addItem(iplist.get(i));
@@ -265,6 +278,21 @@ public class controladorPrincipal implements ActionListener {
                     path1 = archivoelegido.getAbsolutePath();
                     bpath.setText(archivoelegido.getName());
                 }
+        }
+        
+        if(refreshIP == e.getSource()) {
+            final SwingWorker worker = new SwingWorker(){
+                @Override
+                protected Object doInBackground() throws Exception {
+                    progress = new Progress();
+                    //principal.dispose();
+                    //principal = new PrincipalGUI();
+                    cprincipal = new controladorPrincipal(principal, progress.getIPS());
+		return null;
+		}	
+            };
+            worker.execute();
+            
         }
         
         if(cbips == e.getSource()) {

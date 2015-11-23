@@ -23,7 +23,7 @@ public class PrincipalGUI extends JFrame {
     private JCheckBox cbenviar, cbrecibir;
     private JFileChooser fcfile,fcfile1;
     private JComboBox cbips;
-    private JButton bsend, bgodir, bfile, bpath;
+    private JButton bsend, bgodir, bfile, bpath,refreshIP;
     private JTextField tip, tportc, tports, tpath, tfile, tips;
     
     public PrincipalGUI() {
@@ -51,7 +51,9 @@ public class PrincipalGUI extends JFrame {
         cbips.setBounds(150, 150, 150, 30);
   
         cbips.addItem("127.0.0.1");
-    
+        
+        refreshIP = new JButton("Actualizar");
+        refreshIP.setBounds(300, 150, 50, 30);
         
         //tips = new JTextField(50);
         //tips
@@ -111,6 +113,7 @@ public class PrincipalGUI extends JFrame {
         
         add(lipc);
         add(cbips);
+        add(refreshIP);
         add(lips);
         add(tip);
         
@@ -179,10 +182,14 @@ public class PrincipalGUI extends JFrame {
         return tfile;
     }
     
-  
+    
 
     public JFileChooser getFcfile() {
         return fcfile;
+    }
+
+    public JButton getRefreshIP() {
+        return refreshIP;
     }
     
     public JFileChooser getFcfile1() {

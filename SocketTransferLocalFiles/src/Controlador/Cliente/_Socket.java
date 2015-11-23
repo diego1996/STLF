@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,11 +57,13 @@ public class _Socket extends Socket implements Runnable{
         byte b[]=new byte[DEFAULT_BUFFER_SIZE];
         int len=0,off=0;
         try {
+            JOptionPane.showMessageDialog(null, fileInputStream.read());
             while((len=fileInputStream.read(b))>0) {
                 System.out.println(len);
                 dataOutputStream.write(b, off, len);
             }
             dataOutputStream.flush();
+            JOptionPane.showMessageDialog(null, "Archivo Enviado Correctamente!!!");
             System.out.println("entra al run de copeo de bits");
         } catch (IOException e1) {
             e1.printStackTrace();

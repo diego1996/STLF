@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,6 +54,7 @@ public class _Server extends ServerSocket implements Runnable{
                 
                 String fileName = dataInputStream.readUTF();
                 System.out.println(">>Receiving file: "+fileName);
+                JOptionPane.showMessageDialog(null, "Recibiendo archivo, espere un momento ...");
                 System.out.println(">>Please wait...");
                 FileOutputStream fileOutputStream=new FileOutputStream(path+"/"+fileName);
                 byte b[]=new byte[DEFAULT_BUFFER_SIZE];
@@ -63,6 +65,7 @@ public class _Server extends ServerSocket implements Runnable{
                 fileOutputStream.flush();
                 fileOutputStream.close();
                 System.out.println(">>Task completed!");
+                JOptionPane.showMessageDialog(null, "Archivo Recibido Correctamente !!!");
                 } catch (IOException e) {
                     e.printStackTrace();
             }finally{
@@ -80,12 +83,13 @@ public class _Server extends ServerSocket implements Runnable{
     @Override
     public void run() {
         System.out.println(">Waiting for connections...");
+        JOptionPane.showMessageDialog(null, "STLF Actived!");
         Socket socket=null;
         while(running){
             try {
                 socket=accept();
                 System.out.println(">>New Connection Received: "+socket.getInetAddress());
-                
+                JOptionPane.showMessageDialog(null, "Nuevo Archivo entrante...");
                 Connection connection=new Connection(socket, path);
                 System.out.println(">>Starting thread for connection...");
                 connection.start();

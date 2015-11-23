@@ -7,7 +7,7 @@ package Controlador;
 
 import Vista.LoginGUI;
 import Vista.PrincipalGUI;
-import Vista.ProgressSample;
+import Vista.Progress;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -27,7 +27,7 @@ public class controladorLogin implements ActionListener {
     private JButton blogin;
     private PrincipalGUI principal;
     private controladorPrincipal cprincipal;
-    private ProgressSample progress;
+    private Progress progress;
 
     public controladorLogin(LoginGUI login) {
         this.login = login;
@@ -52,7 +52,7 @@ public class controladorLogin implements ActionListener {
                 @Override
                 protected Object doInBackground() throws Exception {
                     
-                    progress = new ProgressSample();
+                    progress = new Progress();
                     login.dispose();
                     principal = new PrincipalGUI();
                     cprincipal = new controladorPrincipal(principal, progress.getIPS());
